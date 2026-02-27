@@ -84,4 +84,9 @@ const fieldsFirst = document.getElementById('fieldsFirst');
 
 fieldsFirst.addEventListener('change', (event) => {
   changeNextSelect(event.currentTarget, 'fieldsSecond');
+});
+
+const sortButton = document.getElementById('sort-button');
+sortButton.addEventListener('click', () => {
+  sortTable('list', sort);
 })
