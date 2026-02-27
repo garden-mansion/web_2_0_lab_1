@@ -20,9 +20,7 @@ const DEFAULT_HEADER = ['Название', 'Тип', 'Страна', 'Горо�
 
 const createTable = (data, idTable) => {
   const table = document.getElementById(idTable);
-  console.log('in create table', table);
   const header = data.length ? Object.keys(data[0]) : DEFAULT_HEADER
-  console.log('header', header)
  
   /* создание шапки таблицы */
   const headerRow = createHeaderRow(header);

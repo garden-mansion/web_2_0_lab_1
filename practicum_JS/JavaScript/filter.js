@@ -46,10 +46,6 @@ const dataFilter = (dataForm) => {
 const filterTable = (data, idTable, dataForm) =>{
   // получаем данные из полей формы
   const datafilter = dataFilter(dataForm);
-
-  // if (Object.values(datafilter).every(value => Math.abs(value) === Infinity || value === '')) {
-
-  // }
   
   // выбираем данные соответствующие фильтру и формируем таблицу из них
   let tableFilter = data.filter(item => {
@@ -79,9 +75,7 @@ const filterTable = (data, idTable, dataForm) =>{
        });
 
        return result;
-  });
-
-  console.log('tableFilter', tableFilter)
+  })
 
   // САМОСТОЯТЕЛЬНО вызвать функцию, которая удаляет все строки таблицы с id=idTable
   clearTable(idTable);
