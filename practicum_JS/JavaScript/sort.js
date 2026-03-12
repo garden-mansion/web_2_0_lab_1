@@ -33,24 +33,46 @@ const createSortArr = (data) => {
   return sortArr;
 };
 
+// сохраняем строки таблицы до первого применения сортировки
+let preSortRows = null;
 
 const sortTable = (idTable, formData) => {
-
   // формируем управляющий массив для сортировки
   const sortArr = createSortArr(formData);
 
-  // сортировать таблицу не нужно, во всех полях выбрана опция Нет
-  if (sortArr.length === 0) {
-    return false;
-  }
+
   //находим нужную таблицу
   let table = document.getElementById(idTable);
+  console.log({ table })
 
   // преобразуем строки таблицы в массив 
-  let rowData = Array.from(table.rows);
+  let rowData = Array.from(table.rows).slice(1);
+  console.log({ rowData })
 
+  // сохраняем исходный порядок строк перед первой сортировкой
   // удаляем элемент с заголовками таблицы
-  const headerRow = rowData.shift();
+  const headerRow = table.rows[0]
+  console.log({ headerRow })
+  
+  if (!preSortRows) {
+    // preSortRows = [...rowData];
+    preSortRows = rowData.map(row => row.cloneNode(true));
+  }
+
+  // сортировать таблицу не нужно, во всех полях выбрана опция Нет
+  if (sortArr.length === 0) {
+    console.log('no sort needed')
+    if (preSortRows) {
+      console.log('pre sort rows')
+      table.innerHTML = "";
+      table.append(headerRow);
+      let tbody = document.createElement("tbody");
+      preSortRows.forEach((item) => tbody.append(item));
+      table.append(tbody);
+      preSortRows = null;
+    }
+    return false;
+  }
 
   //сортируем данные по всем уровням сортировки
   rowData.sort((first, second) => {
@@ -77,6 +99,7 @@ const sortTable = (idTable, formData) => {
     return 0;
   });
 
+  table.innerHTML = ''
   //выводим отсортированную таблицу на страницу
   table.append(headerRow);
 	
@@ -86,3 +109,35 @@ const sortTable = (idTable, formData) => {
     });
 	table.append(tbody);
 }
+
+const resetSort = (idTable, data) => {
+  // восстанавливаем таблицу до применения сортировки
+  if (preSortRows) {
+    const table = document.getElementById(idTable);
+    // const headerRow = Array.from(table.rows).shift();
+    const headerRow = table.rows[0];
+
+    table.innerHTML = "";
+    table.append(headerRow);
+    const tbody = document.createElement("tbody");
+    preSortRows.forEach((item) => tbody.append(item));
+    table.append(tbody);
+    preSortRows = null;
+  }
+
+  // сбрасываем форму сортировки к начальному состоянию (как при загрузке страницы)
+  const sortForm = document.getElementById("sort");
+
+  // очищаем все SELECT
+  for (const select of sortForm.getElementsByTagName("select")) {
+    select.innerHTML = "";
+  }
+
+  // снимаем все флажки «по убыванию»
+  for (const input of sortForm.getElementsByTagName("input")) {
+    if (input.type === "checkbox") input.checked = false;
+  }
+
+  // перестраиваем поля со списком как при загрузке страницы
+  setSortSelects(data[0], sortForm);
+};

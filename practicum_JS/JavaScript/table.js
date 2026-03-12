@@ -43,22 +43,24 @@ const createHeaderRow = (headers) => {
 
 const clearTable = (idTable) => {
   const table = document.getElementById(idTable);
+  table.innerHTML = ''
 
-  // clearing header
-  const header = table.querySelector('tr');
-  while (header.querySelector('th')) {
-    const th = header.querySelector('th');
-    th.remove();
-  }
-  header.remove();
+  // // clearing header
+  // const header = table.querySelector('tr');
+  // while (header.querySelector('th')) {
+  //   const th = header.querySelector('th');
+  //   th.remove();
+  // }
+  // header.remove();
   
-  // clearing body 
-  const tbody = table.querySelector('tbody');
+  // // clearing body 
+  // const tbody = table.querySelector('tbody');
 
-  while (tbody.querySelector('tr')) {
-    tbody.querySelectorAll('td').forEach(td => td.remove());
-    const tr = tbody.querySelector('tr');
-    tr.remove();
-  }
-  tbody.remove();
+  // while (tbody.querySelector('tr')) {
+  //   tbody.querySelectorAll('td').forEach(td => td.remove());
+  //   const tr = tbody.querySelector('tr');
+  //   tr.remove();
+  // }
+  // tbody.remove();
+  // console.log('table after clear table', document.getElementById(idTable))
 }

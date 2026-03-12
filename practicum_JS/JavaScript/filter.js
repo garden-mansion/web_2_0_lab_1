@@ -95,6 +95,8 @@ const clearFilter = (dataForm, idTable) => {
     }
   }
 
+  preSortRows = null;
+
   clearTable(idTable);
   createTable(buildings, idTable)
 }

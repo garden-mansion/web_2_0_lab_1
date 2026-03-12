@@ -90,3 +90,8 @@ const sortButton = document.getElementById('sort-button');
 sortButton.addEventListener('click', () => {
   sortTable('list', sort);
 })
+
+const resetButton = document.getElementById('reset-button');
+resetButton.addEventListener('click', () => {
+  resetSort('list', buildings)
+})
