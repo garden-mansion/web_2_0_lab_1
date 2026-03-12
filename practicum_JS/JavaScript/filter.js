@@ -97,6 +97,23 @@ const clearFilter = (dataForm, idTable) => {
 
   preSortRows = null;
 
+  const sortForm = document.getElementById("sort");
+
+  // Очищаем все SELECT
+  for (const select of sortForm.getElementsByTagName("select")) {
+    select.innerHTML = "";
+  }
+
+  // Снимаем все флажки «по убыванию»
+  for (const input of sortForm.getElementsByTagName("input")) {
+    if (input.type === "checkbox") {
+      input.checked = false;
+    }
+  }
+
+  // Перестраиваем поля со списком как при загрузке страницы
+  setSortSelects(buildings[0], sortForm);
+
   clearTable(idTable);
   createTable(buildings, idTable)
 }
