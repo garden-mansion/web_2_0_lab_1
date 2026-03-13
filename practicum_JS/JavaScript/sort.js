@@ -39,7 +39,7 @@ let preSortRows = null;
 const sortTable = (idTable, formData) => {
   // формируем управляющий массив для сортировки
   const sortArr = createSortArr(formData);
-
+  console.log({ sortArr })
 
   //находим нужную таблицу
   let table = document.getElementById(idTable);

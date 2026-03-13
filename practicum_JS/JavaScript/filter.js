@@ -85,6 +85,20 @@ const filterTable = (data, idTable, dataForm) =>{
 }
 
 const clearFilter = (dataForm, idTable) => {
+  // восстанавливаем таблицу до применения сортировки
+  if (preSortRows) {
+    const table = document.getElementById(idTable);
+    // const headerRow = Array.from(table.rows).shift();
+    const headerRow = table.rows[0];
+
+    table.innerHTML = "";
+    table.append(headerRow);
+    const tbody = document.createElement("tbody");
+    preSortRows.forEach((item) => tbody.append(item));
+    table.append(tbody);
+    preSortRows = null;
+  }
+
   for (const item of dataForm.elements) {
     if (item.type === 'text'){
       item.value = '';
